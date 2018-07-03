@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="@dimen/margin_spacing"
+        android:background="@color/cardview_dark_background">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/addressLbl"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@+id/mapFrame"
+                android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/coordinatesLbl"
+                android:layout_width="match_parent"
+                android:layout_height="20dp"
+                android:layout_below="@+id/addressLbl"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:visibility="gone"/>
+
+            <EditText
+                android:id="@+id/editTinno"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/coordinatesLbl"
+                android:ems="10"
+                android:hint="@string/tin_no"
+                android:inputType="textCapSentences"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            <EditText
+                android:id="@+id/editName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/editTinno"
+                android:ems="10"
+                android:hint="@string/name"
+                android:inputType="textPersonName"
+                android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+
+            <LinearLayout
+                android:id="@+id/detailsPane"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@+id/editName"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/edit_tel"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing"
+                    android:layout_weight="2"
+                    android:ems="10"
+                    android:hint="@string/phone"
+                    android:inputType="phone"
+                    android:textAppearance="@android:style/TextAppearance.Small"/>
+
+                <EditText
+                    android:id="@+id/edit_hse_no"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/spacing"
+                    android:layout_weight="1.25"
+                    android:ems="10"
+                    android:hint="@string/hse_no"
+                    android:inputType="textCapCharacters"
+                    android:textAppearance="?android:attr/textAppearanceSmall"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/websitePane"
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:layout_below="@+id/detailsPane"
+                android:layout_margin="@dimen/spacing"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/editWebsite"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="4"
+                    android:hint="@string/website"
+                    android:inputType="textEmailAddress"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    />
+
+                <ImageView
+                    android:id="@+id/imgSend"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight=".5"
+                    android:contentDescription="@string/send"
+                    android:src="@drawable/ic_action_send_gray"/>
+            </LinearLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
