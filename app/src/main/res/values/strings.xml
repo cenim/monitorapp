@@ -22,6 +22,7 @@
     <string name="flash_on">Flash on</string>
     <string name="camera_permission_confirmation">This app needs permission to access camera.</string>
     <string name="camera_permission_not_granted">Camera app cannot do anything without camera permission.</string>
+
     <string name="enter_message_hint">Comments or other info. </string>
     <string name="title_activity_scrolling">ScrollingActivity</string>
     <string name="telephone_hint"> To follow, please provide telephone #. </string>
@@ -54,4 +55,6 @@
     </string>
 
     <string name="no_data_found">No record found.</string>
+    <string name="help">Support</string>
+    <string name="vicinity">Location</string>
 </resources>

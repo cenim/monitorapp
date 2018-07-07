@@ -17,5 +17,6 @@
     <color name="text_colour">#feeb43</color>
     <color name="transparent">#00000000</color>
     <color name="button_green">#009688</color>
+    <color name="iconsHome">#36018058</color>
 
 </resources>

@@ -1054,8 +1054,12 @@ public class FullCameraActivity extends AppCompatActivity implements
         FullPreviewActivity.getImagePaths().add(imagePath);
         timestamp = new Timestamp(System.currentTimeMillis());
         mLocation = new com.softmasters.dawuro.umid.Location();
-        mLocation.setLatitude(""+location.getLatitude());
-        mLocation.setLongitude(""+location.getLongitude());
+        try {
+            mLocation.setLatitude("" + location.getLatitude());
+            mLocation.setLongitude("" + location.getLongitude());
+        }catch (Exception e){
+            Toast.makeText(context,"Please wait till system pick coordinates",Toast.LENGTH_LONG).show();
+        }
         FullPreviewActivity.getLocations().add(mLocation);
         FullPreviewActivity.getTimestamps().add(timestamp);
         if(mVideoFileName != null  && locationState == true){

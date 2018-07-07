@@ -4,13 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
+import android.widget.ViewFlipper;
 
 import com.softmasters.dawuro.R;
 import com.softmasters.dawuro.services.CapturedDataService;
@@ -29,7 +31,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     Intent intent;
     LinearLayout imageUser;
     LinearLayout imageMiners;
-    ViewPager viewPager;
+    ViewFlipper viewPager;
     AdvertsPagerAdapter advertsPagerAdapter;
     Timer advertsTimer;
     int currentPage;
@@ -53,30 +55,22 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         imageUser = (LinearLayout) findViewById(R.id.imageUser);
         imageMiners = (LinearLayout) findViewById(R.id.imageMiner);
-        viewPager = (ViewPager) findViewById(R.id.advertsPager);
+        viewPager = (ViewFlipper) findViewById(R.id.advertsPager);
 
-        advertsPagerAdapter =  new AdvertsPagerAdapter(HomeActivity.this, images);
-        viewPager.setAdapter(advertsPagerAdapter);
+//        advertsPagerAdapter =  new AdvertsPagerAdapter(HomeActivity.this, images);
+//        viewPager.setAdapter(advertsPagerAdapter);
 
         imageUser.setOnClickListener(this);
         imageMiners.setOnClickListener(this);
 
         advertsTimer = new Timer();
-        currentPage = viewPager.getCurrentItem();
-        advertsTimer.scheduleAtFixedRate(new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (currentPage == images.length){
-                            currentPage = -1;
-                        }
-                        viewPager.setCurrentItem(currentPage++, true);
-                    }
-                });
-            }
-        }, timerDelay, timerPeriod);
+      //  currentPage = viewPager.getCurrentItem();
+        int flip_images[]={R.drawable.first,R.drawable.second,R.drawable.third};
+
+        for(int image: flip_images){
+            flipper(image);
+        }
+
 
 
         Log.w("","Service running : "+ MonitorUtils.isServiceRunning(HomeActivity.class, context));
@@ -88,12 +82,17 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
+        try {
+        switch (item.getItemId()) {
             case R.id.cart:
+
                 Intent intent = new Intent(context, SavedItemsActivity.class);
                 startActivity(intent);
-                break;
 
+                break;
+        }
+        }catch (Exception e){
+            Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -116,5 +115,18 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
                 break;
         }
+    }
+
+    public void flipper(int image){
+        ImageView imageView=new ImageView(context);
+        imageView.setBackgroundResource(image);
+
+        viewPager.addView(imageView);
+        viewPager.setFlipInterval(4000);
+        viewPager.setAutoStart(true);
+
+        viewPager.setInAnimation(context,android.R.anim.slide_in_left);
+        viewPager.setOutAnimation(context,android.R.anim.slide_out_right);
+
     }
 }

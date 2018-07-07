@@ -564,7 +564,9 @@ public class MonitorUtils {
     }
 
     public static Date convertTimestampToDate(Timestamp timestamp){
-        return new Date(timestamp.getTime());
+          timestamp = new Timestamp(System.currentTimeMillis());
+        Date date = new Date(timestamp.getTime());
+        return date;
     }
 
 }

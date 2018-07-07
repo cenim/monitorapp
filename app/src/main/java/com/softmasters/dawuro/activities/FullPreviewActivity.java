@@ -287,6 +287,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
 
                 UploadAsyncTask uploadAsyncTask = new UploadAsyncTask(context, FullPreviewActivity.this, jsonString);
                 uploadAsyncTask.execute(bytes);
+//                Toast.makeText(context,jsonString,Toast.LENGTH_LONG).show();
             }
         };
         asyncTask.execute();
