@@ -154,22 +154,23 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/location"
                 android:layout_width="186dp"
                 android:layout_height="match_parent"
                 android:gravity="start"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp">
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp">
 
                 <ImageView
 
                     android:layout_width="35dp"
                     android:layout_height="28dp"
                     android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="8dp"
                     android:layout_marginRight="1dp"
                     android:layout_marginTop="3dp"
                     android:background="@color/colorPrimaryDark"
                     android:paddingRight="0dp"
-                    android:layout_marginLeft="8dp"
                     android:paddingTop="4dp"
 
                     android:src="@drawable/ic_location_white" />
@@ -185,16 +186,17 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/support"
                 android:layout_width="186dp"
                 android:layout_height="match_parent"
-                 android:layout_weight="1"
+                android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:gravity="end"
-                android:paddingTop="5dp"
+                android:orientation="horizontal"
                 android:paddingBottom="5dp"
-                android:paddingRight="35dp"
 
-                android:orientation="horizontal">
+                android:paddingRight="35dp"
+                android:paddingTop="5dp">
 
                 <ImageView
                     android:layout_width="35dp"
@@ -204,7 +206,7 @@
                     android:layout_marginTop="3dp"
                     android:background="@color/colorPrimaryDark"
                     android:paddingRight="0dp"
-                     android:paddingTop="4dp"
+                    android:paddingTop="4dp"
                     android:src="@drawable/ic_help_white" />
 
                 <TextView

@@ -10,6 +10,8 @@
     <string name="no_record_found">No Record Found</string>
     <string name="send">Send</string>
     <string name="next">Next</string>
+    <string name="googleMapsApiKeyOld">AIzaSyDnWFDX_NPuWEAdLts3d4T65oP5GgYf5BQ</string>
+    <string name="googleMapsApiKeyNew">AIzaSyA2tMDNL16_hH0SlyRxg09J7B6piysevog</string>
     <string name="telephone">Telephone #</string>
     <string name="comment">Comments</string>
     <string name="image_picture">Picture Button</string>

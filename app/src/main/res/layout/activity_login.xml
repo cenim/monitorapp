@@ -81,7 +81,7 @@
                     android:digits="0123456789"
                     android:hint="@string/phone"
                     android:inputType="phone"
-                    android:textAppearance="@android:style/TextAppearance.Material.Small"/>
+                    />
 
                 <EditText
                     android:id="@+id/edit_hse_no"

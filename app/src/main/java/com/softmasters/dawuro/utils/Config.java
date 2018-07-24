@@ -4,7 +4,7 @@ public interface Config {
 
 	//Registration Server
 	public String REGISTRATION_PROTOCOL = "http";
-	public String REGISTRATION_SERVER = "10.0.0.16:8080/galamsey";//192.168.1.17:27261,omanba.ucomgh.com:8089
+	public String REGISTRATION_SERVER = "10.0.0.11:8080/galamsey";//192.168.1.17:27261,omanba.ucomgh.com:8089
 
 	public String SUCCESSFUL_REGISTRATION = "SUCCESSFUL";
 	public String START = "START_APP";
@@ -15,6 +15,7 @@ public interface Config {
 
 	public String SEND_STATUS = "1";
 	public String UPDATE_STATUS = "2";
+	String SENT_TO_SERVER="3";
 
 	public String ENDPOINT = "gms";
 

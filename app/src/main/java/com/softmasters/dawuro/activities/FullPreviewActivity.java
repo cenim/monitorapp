@@ -1,5 +1,6 @@
 package com.softmasters.dawuro.activities;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
@@ -199,7 +200,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
     @Override
     public void launchTask() {
         System.out.println("Starting asynctask...");
-        AsyncTask<Void, Void, byte[]> asyncTask = new AsyncTask<Void, Void, byte[]>() {
+        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, byte[]> asyncTask = new AsyncTask<Void, Void, byte[]>() {
 
             ProgressDialog progressDialog;
 

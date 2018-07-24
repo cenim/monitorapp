@@ -17,7 +17,7 @@ public class Uploader {
 	private static final int READ_TIMEOUT = 20 * 1000;
 	final private String protocol;
 	final private String server;
-	String TAG = "Uploader";
+ 	String TAG = "Uploader";
 
 	public Uploader(String protocol, String server) {
 		this.protocol = protocol;

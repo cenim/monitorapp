@@ -1,10 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.softmasters.dawuro.activities.IncidentActivity"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    >
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.softmasters.dawuro.activities.IncidentActivity">
 
-</android.support.constraint.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp">
+
+            <!--<ImageView-->
+                <!--android:id="@+id/firstIncidenceImage"-->
+                <!--android:layout_width="100dp"-->
+                <!--android:layout_height="match_parent" />-->
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:numColumns="auto_fit"
+                android:paddingRight="5dp"
+                android:horizontalSpacing="5dp"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="5dp"
+                android:columnWidth="50dp"
+                android:id="@+id/gridview"
+                >
+
+            </GridView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TableLayout
+                    android:id="@+id/table1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <TableRow
+                        android:layout_height="wrap_content"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:padding="5dp"
+                            android:text="Date Captured"
+                            android:textColor="#000" />
+
+                        <TextView
+                            android:id="@+id/dateOfIncidence"
+                            android:padding="5dp"
+                            android:text="Date Captured"
+                            android:textColor="#f00"
+
+                            />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_height="wrap_content"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:padding="5dp"
+                            android:text="Comments"
+                            android:textColor="#000" />
+
+                        <TextView
+                            android:id="@+id/commentsOnIncidence"
+                            android:padding="5dp"
+                            android:text="Comments"
+                            android:textColor="#f00"
+
+                            />
+
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_height="wrap_content"
+                        android:padding="4dp">
+
+                        <TextView
+                            android:padding="5dp"
+                            android:text="Status"
+                            android:textColor="#000" />
+
+                        <TextView
+                            android:id="@+id/statusOnIncidence"
+                            android:padding="5dp"
+                            android:text="Status"
+                            android:textColor="#f00"
+
+                            />
+
+                    </TableRow>
+                </TableLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/table2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="135dp"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+                android:background="#f00"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="#f00"
+                    android:src="@drawable/ic_delete" />
+
+                <Button
+                    android:id="@+id/btnDelete"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#f00"
+                    android:paddingRight="5dp"
+                    android:text="Delete"
+                    android:textColor="#fff" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:layout_weight="1"
+android:background="#000"
+                 android:gravity="center">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_weight="0.5"
+                    android:paddingLeft="1dp"
+                    android:background="#000"
+                    android:src="@drawable/ic_send" />
+
+                <Button
+                    android:id="@+id/btnSendIncidence"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="#000"
+                    android:paddingRight="30dp"
+                    android:text="Send"
+                    android:textColor="#fff" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

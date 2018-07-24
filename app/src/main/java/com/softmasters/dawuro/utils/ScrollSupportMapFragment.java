@@ -40,7 +40,7 @@ public class ScrollSupportMapFragment extends MapFragment {
 	}
 
 	public interface OnTouchListener {
-		public abstract void onTouch();
+		   void onTouch();
 	}
 
 	public class TouchableWrapper extends FrameLayout {

@@ -1,6 +1,7 @@
 package com.softmasters.dawuro.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Address;
@@ -11,10 +12,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.softmasters.dawuro.R;
+import com.softmasters.dawuro.activities.IncidentActivity;
 import com.softmasters.dawuro.umid.MessageDetails;
 
 import java.io.IOException;
@@ -33,12 +36,12 @@ public class SavedItemsAdapter extends BaseAdapter {
     private String latitude_TextLocation;
     private String longitude_TextLocation;
     private Geocoder geo;
-    List<Address> locationDetails ;
-    String city,region,country,latitude,longitude;
+    List<Address> locationDetails;
+    String city, region, country, latitude, longitude;
     private String comments;
     byte[] bytes;
 
-    public SavedItemsAdapter(Context context, List<MessageDetails> messageDetails){
+    public SavedItemsAdapter(Context context, List<MessageDetails> messageDetails) {
         this.context = context;
         this.messageDetails = messageDetails;
         inflater = LayoutInflater.from(context);
@@ -51,6 +54,8 @@ public class SavedItemsAdapter extends BaseAdapter {
         public TextView textAddress;
         public TextView textComments;
         public ImageView imageStatus;
+        LinearLayout linearLayout;
+
 
     }
 
@@ -70,8 +75,8 @@ public class SavedItemsAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        System.out.println("Position : "+ position);
+    public View getView(final int position, View convertView, ViewGroup parent) {
+        System.out.println("Position : " + position);
         ViewHolder holder;
         if (convertView == null) {
             holder = new ViewHolder();
@@ -83,65 +88,96 @@ public class SavedItemsAdapter extends BaseAdapter {
             holder.textDate = (TextView) convertView.findViewById(R.id.textDate);
             holder.textLocation = (TextView) convertView.findViewById(R.id.textCoordinates);
             holder.imageStatus = (ImageView) convertView.findViewById(R.id.imgDelivered);
+            holder.linearLayout = (LinearLayout) convertView.findViewById(R.id.incidentClick);
 
             convertView.setTag(holder);
 
-        }else{
+        } else {
             holder = (ViewHolder) convertView.getTag();
         }
 
         try {
             bytes = messageDetails.get(position).getGallery().get(0).getPicture();
-            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0 , bytes.length);
+            Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
             holder.image.setImageBitmap(bitmap);
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
-try {
-    latitude_TextLocation = messageDetails.get(position).getLocation().get(0).getLatitude();
-    longitude_TextLocation = messageDetails.get(position).getLocation().get(0).getLongitude();
-    geo = new Geocoder(context, Locale.getDefault());
-    locationDetails = null;
+        try {
+            latitude_TextLocation = messageDetails.get(position).getLocation().get(0).getLatitude();
+            longitude_TextLocation = messageDetails.get(position).getLocation().get(0).getLongitude();
+            geo = new Geocoder(context, Locale.getDefault());
+            locationDetails = null;
 
-    comments = messageDetails.get(position).getComments().getComment();
-    latitude = messageDetails.get(0).getLocation().get(0).getLatitude();
-    longitude = messageDetails.get(0).getLocation().get(0).getLongitude();
+            comments = messageDetails.get(position).getComments().getComment();
+            latitude = messageDetails.get(0).getLocation().get(0).getLatitude();
+            longitude = messageDetails.get(0).getLocation().get(0).getLongitude();
 
 
-}catch (Exception e){
-    Toast.makeText(context,e.getMessage(),Toast.LENGTH_LONG);
-    Log.e("Error Here ",e.getMessage());
-}
-        if(comments==null)
-        holder.textComments.setText("No comments");
+        } catch (Exception e) {
+            Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG);
+            Log.e("Error Here ", e.getMessage());
+        }
+        if (comments == null)
+            holder.textComments.setText("No comments");
         else
             holder.textComments.setText(comments);
 
-//        if(messageDetails.get(position).getComments().getApplieddate()) == ){
-//
-//        }
 
-
-        
         try {
-          locationDetails=geo.getFromLocation(Double.parseDouble(latitude),Double.parseDouble(longitude),1);
+            locationDetails = geo.getFromLocation(Double.parseDouble(latitude), Double.parseDouble(longitude), 1);
+
+            city = locationDetails.get(0).getLocality();
+            region = locationDetails.get(0).getAdminArea();
+            country = locationDetails.get(0).getCountryName();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
-        city = locationDetails.get(0).getLocality();
-        region = locationDetails.get(0).getAdminArea();
-        country = locationDetails.get(0).getCountryName();
-       
+
+        holder.textAddress.setText(city + "," + region + "," + country);
+
         holder.textDate.setText(MonitorUtils.convertDatetoString(messageDetails.get(position).getComments().getApplieddate()));
 
-        holder.textAddress.setText(city+","+region+","+country);
 
-        holder.textLocation.setText(latitude_TextLocation +", "+longitude_TextLocation);
-        if(messageDetails.get(position).getComments().getStatus().equals(Config.SEND_STATUS)){
+        holder.textLocation.setText(latitude_TextLocation + ", " + longitude_TextLocation);
+        if (messageDetails.get(position).getComments().getStatus().equals(Config.SEND_STATUS)) {
             holder.imageStatus.setImageResource(R.drawable.check);
-        }else if(messageDetails.get(position).getComments().getStatus().equals(Config.UPDATE_STATUS)){
+        } else if (messageDetails.get(position).getComments().getStatus().equals(Config.UPDATE_STATUS)) {
             holder.imageStatus.setImageResource(R.drawable.double_checking);
         }
+
+        holder.linearLayout.setOnClickListener(new View.OnClickListener() {
+            String applcantID, date, comments, status;
+            byte[] pic;
+
+            @Override
+            public void onClick(View v) {
+                applcantID = messageDetails.get(position).getComments().getApplicantid();
+                pic = messageDetails.get(position).getGallery().get(0).getPicture();
+                date = messageDetails.get(position).getComments().getApplieddate().toString();
+                comments = messageDetails.get(position).getComments().getComment();
+                status = messageDetails.get(position).getComments().getStatus();
+                if (comments == null)
+                    comments = "No comments";
+                try {
+
+
+                    Intent intent = new Intent(context, IncidentActivity.class);
+                    intent.putExtra("picture", pic);
+                    intent.putExtra("applicantID", applcantID);
+                    intent.putExtra("date", date);
+                    intent.putExtra("comments", comments);
+                    intent.putExtra("status", status);
+
+
+                    context.startActivity(intent);
+
+                } catch (Exception e) {
+                    Toast.makeText(context, e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            }
+        });
 
         return convertView;
     }

@@ -164,7 +164,7 @@ public class LoginActivity extends AppCompatActivity implements OnMapReadyCallba
         context = LoginActivity.this;
         gson = new Gson();
 
-        Log.d("","MacAddress: "+ MonitorUtils.getMacAddress(context));
+        Log.d("", "MacAddress: " + MonitorUtils.getMacAddress(context));
 
         buildGoogleApiClient();
         initDaos();
@@ -315,7 +315,16 @@ public class LoginActivity extends AppCompatActivity implements OnMapReadyCallba
                 if (permissions.length == 1 &&
                         permissions[0] == android.Manifest.permission.ACCESS_FINE_LOCATION &&
                         grantResults[0] == PackageManager.PERMISSION_GRANTED)
-                    map.setMyLocationEnabled(true);
+                    if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                        // TODO: Consider calling
+                        //    ActivityCompat#requestPermissions
+                        // here to request the missing permissions, and then overriding
+                        //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                        //                                          int[] grantResults)
+                        // to handle the case where the user grants the permission. See the documentation
+                        // for ActivityCompat#requestPermissions for more details.
+                        return;
+                    }map.setMyLocationEnabled(true);
                 break;
         }
     }
