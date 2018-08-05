@@ -603,7 +603,7 @@ public class FullCameraActivity extends AppCompatActivity implements
                     startLocationUpdates();
                 } else {
                     //If GPS turned OFF show Location Dialog
-                    //new Handler().postDelayed(sendUpdatesToUI, 10);
+//                    new Handler().postDelayed(sendUpdatesToUI, 10);
                     //checkLocationSettings();
                     //updateGPSStatus("GPS is Disabled in your device");
                     Log.e("About GPS", "GPS is Disabled in your device");

@@ -31,14 +31,16 @@
          android:layout_marginLeft="10dp"
          />
 
-    <EditText
+    <AutoCompleteTextView
         android:id="@+id/searchbox"
-        android:layout_width="334dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         android:layout_marginLeft="35dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
         android:background="@null"
+        android:imeActionLabel="Search Now"
         android:hint="Enter Address, City or Zip Code"
         android:imeOptions="actionSearch" />
 

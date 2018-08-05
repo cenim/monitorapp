@@ -1,5 +1,6 @@
 package com.softmasters.dawuro.activities;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -263,6 +264,7 @@ public class PreviewActivity extends AppCompatActivity implements View.OnClickLi
                 }
             }
 
+            @SuppressLint("HandlerLeak")
             Handler handler = new Handler() {
                 @Override
                 public void handleMessage(android.os.Message msg) {

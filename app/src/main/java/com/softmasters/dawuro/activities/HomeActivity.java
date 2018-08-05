@@ -4,18 +4,28 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
 
@@ -49,26 +59,30 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
     ViewFlipper viewPager;
     LinearLayout locationIcon;
     LinearLayout supportIcon;
-    AdvertsPagerAdapter advertsPagerAdapter;
-    Timer advertsTimer;
-    int currentPage;
-    int timerDelay = 3000;
-    int timerPeriod = 5000;
+
 
 
     Context context;
 
-    int[] images = new int[]{
-            R.layout.advert1,
-            R.layout.advert2,
-            R.layout.advert3
-    };
+
+
     private static final int ERROR_DIALOG_REQUEST = 9001;
+    ImageView police;
+    ImageView fireService;
+    ImageView electricity;
+    ImageView waterCompany;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        police=(ImageView)findViewById(R.id.policeService);
+        fireService=(ImageView)findViewById(R.id.fireService);
+        electricity=(ImageView)findViewById(R.id.electricityCompany);
+        waterCompany=(ImageView)findViewById(R.id.waterCompany);
+
+
 
         context = HomeActivity.this;
 
@@ -78,19 +92,24 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         locationIcon = (LinearLayout) findViewById(R.id.location);
         supportIcon = (LinearLayout) findViewById(R.id.support);
 
-//        advertsPagerAdapter =  new AdvertsPagerAdapter(HomeActivity.this, images);
-//        viewPager.setAdapter(advertsPagerAdapter);
-
         imageUser.setOnClickListener(this);
         imageMiners.setOnClickListener(this);
 
-        advertsTimer = new Timer();
-        //  currentPage = viewPager.getCurrentItem();
-        int flip_images[] = {R.drawable.first, R.drawable.second, R.drawable.third};
+        police.setOnClickListener(this);
+        fireService.setOnClickListener(this);
+        electricity.setOnClickListener(this);
+        waterCompany.setOnClickListener(this);
 
-        for (int image : flip_images) {
-            flipper(image);
+
+
+        int flip_images[] = {R.drawable.omanba, R.drawable.second, R.drawable.third};
+        String flipper_texts[] = {context.getResources().getString(R.string.first_slide),
+                context.getResources().getString(R.string.second_slide), context.getResources().getString(R.string.third_slide)};
+
+        for (int a = 0; a < flip_images.length; a++) {
+            flipper(flip_images[a], flipper_texts[a]);
         }
+
 
         locationIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,14 +163,55 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
                 intent = new Intent(context, FullCameraActivity.class);
                 startActivity(intent);
                 break;
+            case R.id.policeService:
+                intent=new Intent(context,FullPreviewActivity.class);
+                intent.putExtra("serviceType","police");
+                startActivity(intent);
+                break;
+
+            case R.id.fireService:
+                intent=new Intent(context,FullPreviewActivity.class);
+                intent.putExtra("serviceType","fire");
+                startActivity(intent);
+                break;
+
+            case R.id.waterCompany:
+                intent=new Intent(context,FullPreviewActivity.class);
+                intent.putExtra("serviceType","water");
+                startActivity(intent);
+                break;
+
+            case R.id.electricityCompany:
+                intent=new Intent(context,FullPreviewActivity.class);
+                intent.putExtra("serviceType","electricity");
+                startActivity(intent);
+                break;
         }
     }
 
-    public void flipper(int image) {
+    public void flipper(int image, String text) {
+
+
+        LinearLayout linearLayout = new LinearLayout(context);
+        linearLayout.setOrientation(LinearLayout.VERTICAL);
+        linearLayout.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT));
+        linearLayout.setPadding(20, 10, 20, 10);
         ImageView imageView = new ImageView(context);
+        TextView textView = new TextView(context);
+        textView.setText(text);
+        textView.setTextColor(Color.parseColor("#800000"));
+        textView.setTypeface(Typeface.SERIF,Typeface.ITALIC);
+        textView.setTextSize(10f);
+        textView.setPadding(50, 0, 50, 0);
         imageView.setBackgroundResource(image);
 
-        viewPager.addView(imageView);
+        imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 220));
+
+        linearLayout.addView(imageView);
+        linearLayout.addView(textView);
+        viewPager.addView(linearLayout);
         viewPager.setFlipInterval(4000);
         viewPager.setAutoStart(true);
 
@@ -182,10 +242,6 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
         }
         return false;
     }
-
-
-
-
 
 
 }

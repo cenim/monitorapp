@@ -16,6 +16,7 @@ import com.softmasters.dawuro.umid.Contactinformation;
 import com.softmasters.dawuro.umid.Gallery;
 import com.softmasters.dawuro.umid.Identification;
 import com.softmasters.dawuro.umid.Location;
+import com.softmasters.dawuro.umid.MediaPath;
 import com.softmasters.dawuro.umid.Messaging;
 import com.softmasters.dawuro.umid.Relatives;
 import com.softmasters.dawuro.umid.Userbiometrics;
@@ -39,6 +40,7 @@ public class UMIDDatabaseHelper extends OrmLiteSqliteOpenHelper {
 	Dao<Relatives, Integer> relativesDao;
 	Dao<Userbiometrics, Integer> userBiometricsDao;
 	Dao<Userfingerprint, Integer> userfingerprintDao;
+	Dao<MediaPath,Integer> mediaPathDao;
 
 
 	// SQLiteDatabase db = getWritableDatabase();
@@ -69,6 +71,7 @@ public class UMIDDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Userbiometrics.class);
 			TableUtils.createTable(connectionSource, Userfingerprint.class);
 			TableUtils.createTable(connectionSource, Comments.class);
+			TableUtils.createTable(connectionSource, MediaPath.class);
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -84,6 +87,7 @@ public class UMIDDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
+
 
 			try {
 				db.execSQL("alter table gallery add column longitude text");
@@ -191,7 +195,13 @@ public class UMIDDatabaseHelper extends OrmLiteSqliteOpenHelper {
 		return commentsDao;
 	}
 
+public Dao<MediaPath,Integer> getMediaPathDao() throws SQLException{
+		if(mediaPathDao==null){
+			mediaPathDao=getDao(MediaPath.class);
+		}
 
+		return mediaPathDao;
+}
 
 	@Override
 	public void close() {
@@ -209,6 +219,7 @@ public class UMIDDatabaseHelper extends OrmLiteSqliteOpenHelper {
 			relativesDao = null;
 			userBiometricsDao = null;
 			userfingerprintDao = null;
+			mediaPathDao=null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

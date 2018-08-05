@@ -41,8 +41,8 @@ public class ImageUploaderAsyncTask extends AsyncTask<String, Integer, String> {
         String fileName = "Data.gz";
         StringBuilder builder = new StringBuilder();
         try {
-            String path = "http://10.0.0.11:8080/galamsey/gms";//Config.REGISTRATION_PROTOCOL + File.pathSeparator
-                    //+ Config.REGISTRATION_SERVER + File.pathSeparator+ Config.ENDPOINT;
+            String path = Config.REGISTRATION_PROTOCOL + File.pathSeparator
+                    + Config.REGISTRATION_SERVER + File.pathSeparator+ Config.ENDPOINT;
             System.out.println("Path : "+path);
             connection = (HttpURLConnection) new URL(path).openConnection();
             connection.setRequestMethod("POST");

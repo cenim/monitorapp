@@ -22,7 +22,8 @@ public class GalleryController {
     }
 
     public void saveOrUpdateGallery(String applicantid, String businessid, String latitude, String longitude,
-                                    String macaddress, byte[] picture, String status, Date timestamp, String uniqueuid)
+                                    String macaddress, byte[] picture, String status, Date timestamp, String uniqueuid,
+                                    String paths)
             throws SQLException {
         List<Gallery> galleries = new ArrayList<Gallery>();
         Gallery gallery = new Gallery();
@@ -35,14 +36,17 @@ public class GalleryController {
         if (galleries.size() > 0) {
             gallery = galleries.get(0);
             updateGallery(gallery, applicantid, businessid, latitude, longitude, macaddress,
-                    picture, status, timestamp, uniqueuid);
+                    picture, status, timestamp, uniqueuid, paths);
         } else {
-            saveGallery(applicantid, businessid, latitude, longitude, macaddress, picture, status, timestamp, uniqueuid);
+
+            saveGallery(applicantid, businessid, latitude, longitude, macaddress, picture, status, timestamp, uniqueuid,
+                    paths);
         }
     }
 
     private void saveGallery(String applicantid, String businessid, String latitude, String longitude,
-                             String macaddress, byte[] picture, String status, Date timestamp, String uniqueuid)
+                             String macaddress, byte[] picture, String status, Date timestamp, String uniqueuid,
+                             String paths)
             throws SQLException {
         Gallery gallery = new Gallery();
         gallery.setApplicantid(applicantid);
@@ -54,13 +58,14 @@ public class GalleryController {
         gallery.setStatus(status);
         gallery.setTimestamp(timestamp);
         gallery.setUniqueuid(uniqueuid);
+        gallery.setImagepath(paths);
 
         galleryDao.create(gallery);
     }
 
     private void updateGallery(Gallery gallery, String applicantid, String businessid, String latitude,
                                String longitude, String macaddress, byte[] picture, String status,
-                               Date timestamp, String uniqueuid)
+                               Date timestamp, String uniqueuid, String paths)
             throws SQLException {
         gallery.setApplicantid(applicantid);
         gallery.setBusinessid(businessid);
@@ -71,6 +76,7 @@ public class GalleryController {
         gallery.setStatus(status);
         gallery.setTimestamp(timestamp);
         gallery.setUniqueuid(uniqueuid);
+
 
         galleryDao.update(gallery);
     }

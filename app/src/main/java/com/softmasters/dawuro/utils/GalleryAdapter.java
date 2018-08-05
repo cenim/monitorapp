@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,29 +31,38 @@ public class GalleryAdapter extends BaseAdapter {
 
 
     private Context context;
+
     public Integer[] images = {
-            R.drawable.building,
-            R.drawable.googleg_disabled_color_18,
-            R.drawable.bg_onpressed_state_rect_red,
-            R.drawable.add,
-            R.drawable.places_ic_search
+            R.drawable.building
+
     };
     public String id;
+    public int size;
+    String []imageList;
 
-    public GalleryAdapter(Context context, String id) {
+    public void setSize(int size) {
+        this.size = size;
+    }
+    public int getSize() {
+        return imageList.length;
+    }
+
+
+
+    public GalleryAdapter(Context context, String id,String []imageList) {
         this.context = context;
         this.id = id;
+        this.imageList=imageList;
     }
 
     @Override
-
     public int getCount() {
-        return images.length;
+        return this.getSize();
     }
 
     @Override
     public Object getItem(int position) {
-        return images[position];
+        return imageList[position];
     }
 
     @Override
@@ -64,18 +74,16 @@ public class GalleryAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
 
 
-//        Toast.makeText(context, id, Toast.LENGTH_SHORT).show();
-        byte picture[] = getGalleryByApplicantID().get(0).getPicture();
 
-        Bitmap bitmap = BitmapFactory.decodeByteArray(picture, 0, picture.length);
+        String paths = getGalleryByApplicantID().get(0).getImagepath();
+        String filter[] = paths.split(",");
+        imageList=filter;
+        this.setSize(filter.length);
+        this.getSize();
 
-        List<Byte> pictures = null;
-        Bitmap bitmaps[] = {bitmap};
-
-//        Toast.makeText(context, picture.toString(), Toast.LENGTH_LONG).show();
         ImageView imageView = new ImageView(context);
-//        imageView.setImageResource(images[position]);
-        imageView.setImageBitmap(bitmaps[0]);
+        imageView.setImageURI(Uri.parse(filter[position]));
+
         imageView.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
         imageView.setLayoutParams(new GridView.LayoutParams(130, 130));
         return imageView;

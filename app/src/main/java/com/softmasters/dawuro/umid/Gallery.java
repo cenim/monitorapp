@@ -43,6 +43,17 @@ public class Gallery implements Serializable {
 	@DatabaseField
 	private String longitude;
 
+	public String getImagepath() {
+		return imagepath;
+	}
+
+	public void setImagepath(String imagepath) {
+		this.imagepath = imagepath;
+	}
+
+	@DatabaseField
+	private String imagepath;
+
 	public String getUniqueuid() {
 		return uniqueuid;
 	}

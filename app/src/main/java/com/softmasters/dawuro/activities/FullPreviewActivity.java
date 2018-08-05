@@ -33,10 +33,12 @@ import com.softmasters.dawuro.controllers.CommentsController;
 import com.softmasters.dawuro.controllers.ContactinformationController;
 import com.softmasters.dawuro.controllers.GalleryController;
 import com.softmasters.dawuro.controllers.LocationController;
+import com.softmasters.dawuro.controllers.PathsController;
 import com.softmasters.dawuro.umid.Comments;
 import com.softmasters.dawuro.umid.Contactinformation;
 import com.softmasters.dawuro.umid.Gallery;
 import com.softmasters.dawuro.umid.Location;
+import com.softmasters.dawuro.umid.MediaPath;
 import com.softmasters.dawuro.umid.MessageDetails;
 import com.softmasters.dawuro.umid.ResponseEntity;
 import com.softmasters.dawuro.umid.SuccessPojo;
@@ -94,11 +96,13 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
     Dao<Location, Integer> locationDao;
     Dao<Contactinformation, Integer> contactinformationDao;
     Dao<Gallery, Integer> galleryDao;
+    Dao<MediaPath,Integer> mediaPathDao;
 
     ContactinformationController contactinformationController;
     CommentsController commentsController;
     GalleryController galleryController;
     LocationController locationController;
+    PathsController pathsController;
 
     static List<String> picturePaths;
     static List<ImagePath> imagePaths;
@@ -146,6 +150,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
         recordAudio = (ImageView) findViewById(R.id.record_audio);
         emptyView = (TextView) findViewById(R.id.empty_view);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+
         recyclerView.setHasFixedSize(true);
 
         recyclerManager = new LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false);
@@ -158,6 +163,10 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
             recyclerView.setVisibility(View.GONE);
             emptyView.setVisibility(View.VISIBLE);
         }
+        setGalleries(FullPreviewActivity.getPicturePaths());
+
+        Log.d("pics","Pictures :"+FullPreviewActivity.getImagePaths().size()+","+
+                FullPreviewActivity.getPicturePaths());
 
         imageCapture = findViewById(R.id.imageCapture);
         btnSend = (Button) findViewById(R.id.btnSendFullPreview);
@@ -166,8 +175,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
         btnSend.setOnClickListener(this);
         recordAudio.setOnClickListener(this);
     }
-
-    @Override
+     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSendFullPreview:
@@ -393,6 +401,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
             }
             System.out.println("Picture Paths");
             Log.w("", "PicturePaths : " + imagePaths.size());
+//            Toast.makeText(context,"Images :"+imagePaths.size(),Toast.LENGTH_LONG).show();
             for (int i = 0; i < imagePaths.size(); i++) {
                 String filePath;
                 if(!imagePaths.get(i).isVideo()){
@@ -411,6 +420,16 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
                     gallery.setStatus(Config.SEND_STATUS);
                     gallery.setTimestamp(MonitorUtils.convertTimestampToDate(timestamps.get(i)));
                     gallery.setUniqueuid(galleryuid);
+
+//                    String imagePath=FullPreviewActivity.imagePaths.get(i).getImagePath();
+
+                   List<String> s=FullPreviewActivity.getPicturePaths();
+                   int numOfImages=FullPreviewActivity.getImagePaths().size();
+                   String sb="";
+                   for(int a=0; a<numOfImages; a++){
+                         sb+=s.get(a).concat(",");
+                   }
+                    gallery.setImagepath(sb);
 
                     galleries.add(gallery);
 
@@ -441,6 +460,11 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
 
             messageDetails.add(messageDetail);
             System.out.println("Method Size : " + messageDetails.size());
+
+
+
+
+
 
             try {
                 TransactionManager.callInTransaction(getUMIDHelper().getConnectionSource(), new Callable<Void>() {
@@ -513,7 +537,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
                                         gallery.getPicture(),
                                         gallery.getStatus(),
                                         gallery.getTimestamp(),
-                                        gallery.getUniqueuid());
+                                        gallery.getUniqueuid(),gallery.getImagepath());
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -602,6 +626,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
             locationDao = getUMIDHelper().getLocationDao();
             galleryDao = getUMIDHelper().getGalleryDao();
             contactinformationDao = getUMIDHelper().getContactinformationDao();
+            mediaPathDao=getUMIDHelper().getMediaPathDao();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -614,6 +639,7 @@ public class FullPreviewActivity extends AppCompatActivity implements View.OnCli
             commentsController = new CommentsController(context, commentsDao);
             galleryController = new GalleryController(context, galleryDao);
             locationController = new LocationController(context, locationDao);
+            pathsController=new PathsController(context,mediaPathDao);
         } catch (Exception e) {
             e.printStackTrace();
         }

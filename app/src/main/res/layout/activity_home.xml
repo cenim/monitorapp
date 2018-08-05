@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
     android:fitsSystemWindows="true"
-    tools:context="com.softmasters.dawuro.activities.HomeActivity"
-    android:background="@android:color/white">
+    tools:context="com.softmasters.dawuro.activities.HomeActivity">
 
     <!--<ImageView-->
     <!--android:layout_width="230dp"-->
@@ -20,7 +19,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="25dp"
-        app:layout_anchor="@+id/layoutAdverts"/>
+        app:layout_anchor="@+id/layoutAdverts" />
 
     <LinearLayout
         android:id="@+id/combinedlayouts"
@@ -38,13 +37,25 @@
             android:paddingLeft="@dimen/space_xsmall"
             android:paddingRight="@dimen/space_xsmall">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginBottom="20dp"
+                android:gravity="center"
+                android:id="@+id/flipperTexts"
+                android:text="sdfag"
+                android:visibility="gone"
+                />
+
             <ViewFlipper
                 android:id="@+id/advertsPager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_below="@+id/ld_container"></ViewFlipper>
+                android:layout_alignParentTop="true"
+                android:padding="10dp" />
 
             <RelativeLayout
                 android:id="@+id/ld_container"
@@ -67,8 +78,8 @@
             android:id="@+id/layoutButtons"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/space_big"
-            android:layout_marginRight="@dimen/space_big"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
             android:background="#ddd"
             android:orientation="horizontal"
             android:padding="@dimen/space_small">
@@ -81,7 +92,8 @@
                 android:layout_weight="1"
                 android:clickable="false"
                 android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <ImageView
                     android:layout_width="70dp"
@@ -102,32 +114,96 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
+
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/building_deepred" />
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
+                    android:src="@drawable/worker"
+                     />
 
                 <TextView
                     android:id="@+id/textView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:text="Companies"
+                    android:text="Worker"
                     android:textColor="@color/colorPrimary" />
             </LinearLayout>
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="61dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp">
+
+            <ImageView
+                android:id="@+id/policeService"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ccc"
+                android:padding="2dp"
+                android:src="@drawable/police"
+                 />
+
+            <ImageView
+                android:id="@+id/fireService"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ccc"
+                android:padding="2dp"
+                android:src="@drawable/fire"
+
+
+                />
+
+            <ImageView
+                android:id="@+id/waterCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ccc"
+                android:padding="2dp"
+                 android:src="@drawable/pipe"
+
+
+                />
+
+            <ImageView
+                android:id="@+id/electricityCompany"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="#ccc"
+                android:padding="2dp"
+                android:src="@drawable/electric"
+
+
+                />
+        </LinearLayout>
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#ddd"
             android:paddingBottom="@dimen/space_small"
-            android:paddingTop="@dimen/space_big"
+            android:paddingTop="10dp"
             android:visibility="visible">
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Emergency Services"
+                android:textColor="@color/colorPrimaryDark"
+                android:textStyle="bold" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -149,8 +225,8 @@
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
-             android:background="@color/colorPrimaryDark"
+            android:layout_marginTop="0dp"
+            android:background="@color/colorPrimaryDark"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -223,4 +299,4 @@
         </LinearLayout>
 
     </LinearLayout>
- </android.support.design.widget.CoordinatorLayout>
+</android.support.design.widget.CoordinatorLayout>

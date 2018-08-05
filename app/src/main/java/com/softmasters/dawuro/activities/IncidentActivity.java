@@ -33,10 +33,20 @@ public class IncidentActivity extends AppCompatActivity {
     private String statusOfIncidence;
     private String commentsOnIncidence;
     public String applicantID;
+    public String galleryID;
+    public String[] removeCommas;
 
 
     public String getApplicantID() {
         return applicantID;
+    }
+
+    public String getGalleryID() {
+        return galleryID;
+    }
+
+    public void setGalleryID(String galleryID) {
+        this.galleryID = galleryID;
     }
 
     public void setApplicantID(String applicantID) {
@@ -63,6 +73,9 @@ public class IncidentActivity extends AppCompatActivity {
             commentsOnIncidence = getIntent().getStringExtra("comments");
             picture = getIntent().getByteArrayExtra("picture");
             applicantID = getIntent().getStringExtra("applicantID");
+            galleryID=getIntent().getStringExtra("galleryID");
+
+            String paths=getIntent().getStringExtra("path");
 
             date.setText(dateReported);
             status.setText(statusOfIncidence);
@@ -70,6 +83,9 @@ public class IncidentActivity extends AppCompatActivity {
 
             this.setApplicantID(applicantID);
             this.getApplicantID();
+
+            removeCommas=paths.split(",");
+            Toast.makeText(IncidentActivity.this,removeCommas[0]+"==="+removeCommas[1],Toast.LENGTH_LONG).show();
 
 //            Bitmap bitmap = BitmapFactory.decodeByteArray(picture, 0, picture.length);
 //            pic.setImageBitmap(bitmap);
@@ -80,7 +96,7 @@ public class IncidentActivity extends AppCompatActivity {
 
 //        getGalleryByApplicantID("");
 
-        gridView.setAdapter(new GalleryAdapter(this, getApplicantID()));
+        gridView.setAdapter(new GalleryAdapter(this, this.getApplicantID(),removeCommas));
 
     }
 

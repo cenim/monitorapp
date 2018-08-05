@@ -158,6 +158,7 @@ public class SavedItemsAdapter extends BaseAdapter {
                 date = messageDetails.get(position).getComments().getApplieddate().toString();
                 comments = messageDetails.get(position).getComments().getComment();
                 status = messageDetails.get(position).getComments().getStatus();
+                String paths=messageDetails.get(position).getGallery().get(0).getImagepath();
                 if (comments == null)
                     comments = "No comments";
                 try {
@@ -166,6 +167,9 @@ public class SavedItemsAdapter extends BaseAdapter {
                     Intent intent = new Intent(context, IncidentActivity.class);
                     intent.putExtra("picture", pic);
                     intent.putExtra("applicantID", applcantID);
+                    intent.putExtra("galleryID", applcantID);
+                    intent.putExtra("path",paths);
+
                     intent.putExtra("date", date);
                     intent.putExtra("comments", comments);
                     intent.putExtra("status", status);

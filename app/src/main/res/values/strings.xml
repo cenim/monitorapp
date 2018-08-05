@@ -53,10 +53,14 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
-        completions."
+        completions.
     </string>
 
     <string name="no_data_found">No record found.</string>
     <string name="help">Support</string>
     <string name="vicinity">Location</string>
+    <string name="first_slide">Softmasters dawuro is an effective application to monitor humans</string>
+    <string name="second_slide">Second one information</string>
+    <string name="third_slide">Third one information</string>
+
 </resources>
